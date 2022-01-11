@@ -7,7 +7,7 @@ const App = () => {
     <Router>
       <Routes>
         <Route exact path="/" element={<HomePage />} />
-        <Route exact path="/chat/lat=:lat&lon=:lon" element={<ChatPage />} />
+        <Route exact path="/chat/lat=:lat&lon=:lon&name=:name" element={<ChatPage />} />
       </Routes>
     </Router>
   );
