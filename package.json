@@ -1,0 +1,19 @@
+{
+  "name": "neighbour-talk",
+  "version": "1.0.0",
+  "description": "chat anonymously with people with whom you share your location",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "author": "huzefa",
+  "license": "MIT",
+  "dependencies": {
+    "config": "^3.3.6",
+    "cors": "^2.8.5",
+    "express": "^4.17.2",
+    "mongoose": "^6.1.6"
+  }
+}
