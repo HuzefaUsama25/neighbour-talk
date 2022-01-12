@@ -1,8 +1,8 @@
 const Message = (props) => {
     return (
         <div className="message-box">
-            <p>{props.name}</p>
-            <p>{props.message}</p>
+            <p className="user-name">{props.name}</p>
+            <p className="message-text">{props.message}</p>
         </div>
 
     );

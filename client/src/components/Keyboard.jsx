@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./css/Keyboard.css"
 
 const Keyboard = (props) => {
 
@@ -13,10 +14,13 @@ const Keyboard = (props) => {
 
 
     return (
-        <form onSubmit={handleSubmit}>
-            <input required type="text" value={message} onChange={(e) => { setMessage(e.target.value) }} />
-            <input type="submit" value="send" />
-        </form>
+        <div className="keyboard">
+            <form onSubmit={handleSubmit}>
+                <input required type="text" value={message} onChange={(e) => { setMessage(e.target.value) }} />
+                <input type="submit" value="send" />
+            </form>
+        </div>
+
     );
 }
 

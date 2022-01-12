@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom'
+import "./css/HomePage.css"
+
 
 const Home = () => {
     const [lat, setLat] = useState('')
@@ -7,10 +9,6 @@ const Home = () => {
     const [location, setLocation] = useState('')
     const [name, setName] = useState('')
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        setName(e.target.value)
-    }
 
     const getLocationCoords = () => {
         navigator.geolocation.getCurrentPosition((pos) => {
@@ -43,11 +41,11 @@ const Home = () => {
     return (
         <div className="home-page">
             <h1>Home Page</h1>
-            <p>your current location is: <strong>{location}</strong><br />which is at <strong>{lat}</strong> + <strong>{lon}</strong></p>
+            <p><strong>{location}</strong></p>
 
             <input type="text" value={name} onChange={(e) => { setName(e.target.value) }} />
 
-            <Link to={`/chat/lat=${lat}&lon=${lon}&name=${name}`}>Start Chat</Link>
+            <Link to={`/chat/roomid=${Math.round(lat)}x${Math.round(lon)}&name=${name}`}>Start Chat</Link>
         </div >
     );
 }
