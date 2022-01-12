@@ -15,7 +15,12 @@ const ChatPage = () => {
     ])
 
     const addMessage = (message) => {
-        setMessages([[...messages] + {"name":name, "message":message}])
+        if (messages.length > 10) {
+            setMessages([...messages.slice(1), { "name": name, "message": message }])
+        }
+        else {
+            setMessages([...messages, { "name": name, "message": message }])
+        }
     }
 
     return (
@@ -29,7 +34,7 @@ const ChatPage = () => {
                 return <><Message name={message.name} message={message.message} /><br /></>
             })}
             <hr />
-            <Keyboard add={(message)=>{addMessage(message)}} />
+            <Keyboard add={(message) => { addMessage(message) }} />
         </div>
     );
 }
