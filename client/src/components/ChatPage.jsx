@@ -9,6 +9,7 @@ const ChatPage = () => {
     let { roomid, name } = useParams()
 
     const [messages, setMessages] = useState([])
+    const [isPending, setIsPending] = useState(true)
 
 
     useEffect(() => {
@@ -19,6 +20,7 @@ const ChatPage = () => {
                 })
                 .then(res => {
                     setMessages(res)
+                    setIsPending(false)
                 })
             console.log("Sent request to get all messages")
         }, 10000)
@@ -32,7 +34,7 @@ const ChatPage = () => {
             name: name
         }
 
-        setMessages([...messages, newMessageJson])
+        setMessages([...messages.slice(messages.length - 9), newMessageJson])
 
         fetch(`http://localhost:8082/api/rooms&coords=${roomid}`, {
             method: "POST",
@@ -49,17 +51,21 @@ const ChatPage = () => {
 
 
     return (
-        <div className="chat-page">
-            <div className="btn go-back"><Link to="/">Go Back</Link></div>
+        <>
+            {isPending ? <h1>loading</h1> :
+                <div className="chat-page">
+                    <div className="btn go-back"><Link to="/">Go Back</Link></div>
 
-            <div className="messages-container">
-                {messages.map((message) => {
-                    return <div className={`message-container ${message.name === name ? "self" : "other"}`}><Message name={message.name} message={message.message} /></div>
-                })}
-            </div>
+                    <div className="messages-container">
+                        {messages.map((message) => {
+                            return <div className={`message-container ${message.name === name ? "self" : "other"}`}><Message name={message.name} message={message.message} /></div>
+                        })}
+                    </div>
 
-            <Keyboard add={(message) => { addMessage(message) }} />
-        </div>
+                    <Keyboard add={(message) => { addMessage(message) }} />
+                </div>
+            }
+        </>
     );
 }
 
