@@ -7,6 +7,11 @@ roomSchema = new mongoose.Schema(
             type: String,
             required: true
         },
+        roomDateCreated: {
+            type: Date,
+            required: true,
+            default: Date.now()
+        },
         messages: [
             {
                 name: {
@@ -16,6 +21,11 @@ roomSchema = new mongoose.Schema(
                 message: {
                     type: String,
                     required: true
+                },
+                messageDateCreated: {
+                    type: Date,
+                    required: true,
+                    default: Date.now()
                 }
             },
         ]
