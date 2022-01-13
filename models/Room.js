@@ -1,16 +1,14 @@
 const mongoose = require('mongoose')
 
 
+
+
 roomSchema = new mongoose.Schema(
     {
+        createdAt: { type: Date, expires: '1s', default: Date.now() },
         coords: {
             type: String,
             required: true
-        },
-        roomDateCreated: {
-            type: Date,
-            required: true,
-            default: Date.now()
         },
         messages: [
             {
@@ -31,6 +29,7 @@ roomSchema = new mongoose.Schema(
         ]
     }
 )
+
 
 
 module.exports = Room = mongoose.model('Room', roomSchema)
