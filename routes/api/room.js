@@ -1,13 +1,12 @@
 const express = require('express')
-
 const router = express.Router()
 
-router.get("/rooms", (req, res) => {
-    res.status(200).json({ name: 'room1', coords: '68x28' })
-})
+const Room = require('../../models/Room')
 
-router.get("/rooms/id=:id/messages", (req, res) => {
-    res.status(200).send(`Messages for: ${req.params.id}`)
+router.get("/rooms", (req, res) => {
+    Room.find()
+        .then(rooms => res.status(200).json(rooms))
+        .catch(err => res.status(404).send("No Recipie Found"))
 })
 
 
