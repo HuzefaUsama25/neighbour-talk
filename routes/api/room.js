@@ -14,7 +14,7 @@ router.get("/rooms", (req, res) => {
 // get a specific room
 router.get("/rooms&coords=:coords", (req, res) => {
     Room.findOne({ "coords": req.params.coords })
-        .then(rooms => res.status(200).json(rooms))
+        .then(rooms => res.status(200).json(rooms.messages.slice(rooms.messages.length - 10)))
         .catch(err => res.status(404).send("No Recipie Found"))
 })
 

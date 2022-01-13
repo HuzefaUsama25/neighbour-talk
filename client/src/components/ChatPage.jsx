@@ -18,7 +18,7 @@ const ChatPage = () => {
                     return res.json()
                 })
                 .then(res => {
-                    setMessages(res.messages)
+                    setMessages(res)
                 })
             console.log("Sent request to get all messages")
         }, 10000)
