@@ -7,13 +7,13 @@ const Home = () => {
     const [lat, setLat] = useState('')
     const [lon, setLon] = useState('')
     const [location, setLocation] = useState('')
-    const [name, setName] = useState('')
+    const [name, setName] = useState(`person-${Math.round(Math.random() ** 10)}`)
 
 
     const getLocationCoords = () => {
         navigator.geolocation.getCurrentPosition((pos) => {
-            setLat(pos.coords.latitude)
-            setLon(pos.coords.longitude)
+            setLat(Math.round((pos.coords.latitude + Number.EPSILON) * 100) / 100)
+            setLon(Math.round((pos.coords.longitude + Number.EPSILON) * 100) / 100)
         });
     }
 
@@ -40,12 +40,14 @@ const Home = () => {
 
     return (
         <div className="home-page">
+            <h1>{lat}, {lon}</h1>
             <h1>Home Page</h1>
             <p><strong>{location}</strong></p>
 
-            <input type="text" value={name} onChange={(e) => { setName(e.target.value) }} />
+            <label htmlFor="name">Name</label>
+            <input type="text" name="name" required value={name} onChange={(e) => { setName(e.target.value) }} />
 
-            <Link to={`/chat/roomid=${Math.round(lat)}x${Math.round(lon)}&name=${name}`}>Start Chat</Link>
+            <Link to={`/chat/roomid=${lat}x${lon}&name=${name}`}>Start Chat</Link>
         </div >
     );
 }
