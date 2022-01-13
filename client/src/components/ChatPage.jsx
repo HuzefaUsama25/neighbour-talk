@@ -10,21 +10,47 @@ const ChatPage = () => {
 
     const [messages, setMessages] = useState([])
     const [isPending, setIsPending] = useState(true)
+    const [requestSent, setRequestSent] = useState(0)
 
 
     useEffect(() => {
         setTimeout(() => {
-            fetch(`http://localhost:8082/api/rooms&coords=${roomid}`)
+            fetch(`http://localhost:8082/api/rooms&coords=${roomid}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            })
                 .then(res => {
                     return res.json()
                 })
                 .then(res => {
                     setMessages(res)
                     setIsPending(false)
+                    setRequestSent(requestSent + 1)
                 })
             console.log("Sent request to get all messages")
-        }, 10000)
-    }, [messages])
+        }, 5000)
+    }, [requestSent])
+
+
+    useEffect(() => {
+        fetch(`http://localhost:8082/api/rooms&coords=${roomid}`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        })
+            .then(res => {
+                return res.json()
+            })
+            .then(res => {
+                setMessages(res)
+                setIsPending(false)
+            })
+        console.log("Sent request to get all messages")
+
+    }, [])
 
 
 
@@ -39,8 +65,8 @@ const ChatPage = () => {
         fetch(`http://localhost:8082/api/rooms&coords=${roomid}`, {
             method: "POST",
             headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
             },
             body: JSON.stringify(newMessageJson)
         })
@@ -58,7 +84,7 @@ const ChatPage = () => {
 
                     <div className="messages-container">
                         {messages.map((message) => {
-                            return <div className={`message-container ${message.name === name ? "self" : "other"}`}><Message name={message.name} message={message.message} /></div>
+                            return <div className={`message-container ${message.name === name ? "self" : "other"}`}><Message name={message.name} message={message.message} key={message._id} /></div>
                         })}
                     </div>
 

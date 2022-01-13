@@ -36,6 +36,12 @@ const Home = () => {
         getLocationCoords()
         getPlace()
 
+        return (
+            () => {
+                console.log("Stop everything")
+            }
+        )
+
     }, [lat, lon])
 
     return (
