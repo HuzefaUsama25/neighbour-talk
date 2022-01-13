@@ -8,52 +8,53 @@ import "./css/ChatPage.css"
 const ChatPage = () => {
     let { roomid, name } = useParams()
 
-    const [messages, setMessages] = useState([
-        { "name": "huzefa", "message": "Hello Mama" },
-        { "name": "filza", "message": "Hello Filza" },
-        { "name": "umer", "message": "Hello Umer" },
-        { "name": "tanveer", "message": "Hello Tanveer" },
-        { "name": "usama", "message": "Hello Huzefa" }
-    ])
+    const [messages, setMessages] = useState([])
 
 
     useEffect(() => {
-        console.log("Register new user to room")
-
-        return () => {
-            console.log("REmove User")
-        }
-    }, [])
-
-    useEffect(() => {
-        console.log("Send my messages to room server")
-        console.log("Get all room messages from server")
+        setTimeout(() => {
+            fetch(`http://localhost:8082/api/rooms&coords=${roomid}`)
+                .then(res => {
+                    return res.json()
+                })
+                .then(res => {
+                    setMessages(res.messages)
+                })
+            console.log("Sent request to get all messages")
+        }, 10000)
     }, [messages])
 
-    useEffect(() => {
-        console.log("Get all room messages from server")
-    })
 
 
     const addMessage = (message) => {
-        if (messages.length > 5) {
-            setMessages([...messages.slice(1), { "name": name, "message": message }])
+        const newMessageJson = {
+            message: message,
+            name: name
         }
-        else {
-            setMessages([...messages, { "name": name, "message": message }])
-        }
+
+        setMessages([...messages, newMessageJson])
+
+        fetch(`http://localhost:8082/api/rooms&coords=${roomid}`, {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newMessageJson)
+        })
+            .catch(err => {
+                console.log(err)
+            })
     }
 
 
     return (
         <div className="chat-page">
             <div className="btn go-back"><Link to="/">Go Back</Link></div>
-            <p>{roomid}<br />{name}</p>
-
 
             <div className="messages-container">
                 {messages.map((message) => {
-                    return <div className="message-container"><Message name={message.name} message={message.message} /></div>
+                    return <div className={`message-container ${message.name === name ? "self" : "other"}`}><Message name={message.name} message={message.message} /></div>
                 })}
             </div>
 

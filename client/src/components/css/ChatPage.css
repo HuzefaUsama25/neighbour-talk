@@ -26,3 +26,9 @@
 .user-name {
     font-size: 0.8em;
 }
+
+.self{
+    background-color: blue;
+    align-self: flex-end;
+    border-radius: 2em 2em 0em 2em;
+}
