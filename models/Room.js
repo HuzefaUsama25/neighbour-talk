@@ -5,7 +5,12 @@ const mongoose = require('mongoose')
 
 roomSchema = new mongoose.Schema(
     {
-        createdAt: { type: Date, expires: '1s', default: Date.now() },
+        createdAt: {
+            type: Date,
+            required: true,
+            default: Date.now,
+            expires: 3600
+        },
         coords: {
             type: String,
             required: true
@@ -23,13 +28,13 @@ roomSchema = new mongoose.Schema(
                 messageDateCreated: {
                     type: Date,
                     required: true,
-                    default: Date.now()
+                    default: Date.now
                 }
             },
         ]
     }
 )
 
-
+//roomSchema.index({ createdAt: 1 }, { expireAfterSeconds: 3600 })
 
 module.exports = Room = mongoose.model('Room', roomSchema)

@@ -10,8 +10,6 @@ const ChatPage = () => {
 
     const [messages, setMessages] = useState([])
     const [isPending, setIsPending] = useState(true)
-    const [requestSent, setRequestSent] = useState(0)
-
 
     useEffect(() => {
         setTimeout(() => {
@@ -27,31 +25,10 @@ const ChatPage = () => {
                 .then(res => {
                     setMessages(res)
                     setIsPending(false)
-                    setRequestSent(requestSent + 1)
                 })
             console.log("Sent request to get all messages")
         }, 5000)
-    }, [requestSent])
-
-
-    useEffect(() => {
-        fetch(`http://localhost:8082/api/rooms&coords=${roomid}`, {
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            }
-        })
-            .then(res => {
-                return res.json()
-            })
-            .then(res => {
-                setMessages(res)
-                setIsPending(false)
-            })
-        console.log("Sent request to get all messages")
-
-    }, [])
-
+    }, [messages])
 
 
     const addMessage = (message) => {
@@ -60,7 +37,9 @@ const ChatPage = () => {
             name: name
         }
 
-        setMessages([...messages.slice(messages.length - 9), newMessageJson])
+
+        setMessages([...messages.slice(1, messages.length), newMessageJson])
+
 
         fetch(`http://localhost:8082/api/rooms&coords=${roomid}`, {
             method: "POST",

@@ -8,7 +8,7 @@ const Room = require('../../models/Room')
 router.get("/rooms", (req, res) => {
     Room.find()
         .then(rooms => res.status(200).json(rooms))
-        .catch(err => res.status(404).send("No Recipie Found"))
+        .catch(err => res.status(404).send("No Rooms Found"))
 })
 
 
@@ -21,7 +21,7 @@ router.get("/rooms&coords=:coords", (req, res) => {
             if (rooms == null) {
                 Room.create({ "coords": req.params.coords, "messages": [] })
                     .then(rooms => {
-                        res.status(200).json(rooms)
+                        res.status(200).json(rooms.messages)
                     })
                     .catch(err => {
                         res.status(404).send(`unable to create new room ${err}`)
@@ -29,7 +29,12 @@ router.get("/rooms&coords=:coords", (req, res) => {
             }
             // if there is a room than show it latest 10 messages
             else {
-                res.status(200).json(rooms.messages.slice(rooms.messages.length - 10))
+                if (rooms.messages.length < 11) {
+                    res.status(200).json(rooms.messages)
+                }
+                else {
+                    res.status(200).json(rooms.messages.slice(rooms.messages.length - 10))
+                }
             }
         })
         .catch(err => res.status(404).send(`${err}`))
