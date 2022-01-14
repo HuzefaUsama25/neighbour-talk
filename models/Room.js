@@ -9,7 +9,7 @@ roomSchema = new mongoose.Schema(
             type: Date,
             required: true,
             default: Date.now,
-            expires: 3600
+            expires: 900
         },
         coords: {
             type: String,
@@ -35,6 +35,6 @@ roomSchema = new mongoose.Schema(
     }
 )
 
-//roomSchema.index({ createdAt: 1 }, { expireAfterSeconds: 3600 })
+//roomSchema.index({ createdAt: 1 }, { expireAfterSeconds: 900 })
 
 module.exports = Room = mongoose.model('Room', roomSchema)
