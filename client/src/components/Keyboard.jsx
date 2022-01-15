@@ -16,8 +16,8 @@ const Keyboard = (props) => {
     return (
         <div className="keyboard">
             <form onSubmit={handleSubmit}>
-                <input required type="text" value={message} onChange={(e) => { setMessage(e.target.value) }} />
-                <input type="submit" value="send" />
+                <input required type="text" value={message} onChange={(e) => { setMessage(e.target.value) }}></input>
+                <input type="submit" value="Send"></input>
             </form>
         </div>
 

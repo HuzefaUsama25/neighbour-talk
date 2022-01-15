@@ -35,6 +35,5 @@ roomSchema = new mongoose.Schema(
     }
 )
 
-//roomSchema.index({ createdAt: 1 }, { expireAfterSeconds: 900 })
 
 module.exports = Room = mongoose.model('Room', roomSchema)

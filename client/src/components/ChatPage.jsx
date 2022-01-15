@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import Keyboard from "./Keyboard";
 import Message from "./Message";
 import "./css/ChatPage.css"
+const Filter = require('bad-words')
 
 
 const ChatPage = () => {
@@ -10,6 +11,7 @@ const ChatPage = () => {
 
     const [messages, setMessages] = useState([])
     const [isPending, setIsPending] = useState(true)
+    const filter = new Filter()
 
     useEffect(() => {
         setTimeout(() => {
@@ -31,14 +33,24 @@ const ChatPage = () => {
     }, [messages])
 
 
+
     const addMessage = (message) => {
+
+        let verifiedMessage = filter.clean(message)
+
         const newMessageJson = {
-            message: message,
+            message: verifiedMessage,
             name: name
         }
 
 
-        setMessages([...messages.slice(1, messages.length), newMessageJson])
+        if (messages.length > 10) {
+            setMessages([...messages.slice(1, messages.length), newMessageJson])
+        }
+
+        if (messages.length < 9) {
+            setMessages([...messages, newMessageJson])
+        }
 
 
         fetch(`http://localhost:8082/api/rooms&coords=${roomid}`, {
@@ -59,7 +71,9 @@ const ChatPage = () => {
         <>
             {isPending ? <h1>loading</h1> :
                 <div className="chat-page">
-                    <div className="btn go-back"><Link to="/">Go Back</Link></div>
+                    <div className="header">
+                        <div className="btn go-back"><Link to="/">Go Back</Link></div>
+                    </div>
 
                     <div className="messages-container">
                         {messages.map((message) => {

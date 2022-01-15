@@ -15,7 +15,7 @@ router.get("/rooms", (req, res) => {
 
 // get a messages for a room, make a new room if it doesn't already exist
 router.get("/rooms&coords=:coords", (req, res) => {
-    Room.findOne({ "coords": req.params.coords })
+    Room.findOne({ "coords": req.params.coords }, { "messages": { $slice: -10 } })
         .then(rooms => {
             // if there is no room matching the coords, then create new room
             if (rooms == null) {
@@ -27,14 +27,9 @@ router.get("/rooms&coords=:coords", (req, res) => {
                         res.status(404).send(`unable to create new room ${err}`)
                     })
             }
-            // if there is a room than show it latest 10 messages
+            // if there is a room than show it's messages
             else {
-                if (rooms.messages.length < 11) {
-                    res.status(200).json(rooms.messages)
-                }
-                else {
-                    res.status(200).json(rooms.messages.slice(rooms.messages.length - 10))
-                }
+                res.status(200).json(rooms.messages)
             }
         })
         .catch(err => res.status(404).send(`${err}`))

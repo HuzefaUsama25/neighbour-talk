@@ -3,6 +3,18 @@
   padding: 0;
 }
 
+:root {
+  --primary-background-color: white;
+
+  --messages-container-color: white;
+  --message-color-self: rgb(15, 159, 216);
+  --message-color-other: rgb(48, 145, 184);
+
+  --form-color: white;
+
+}
+
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -10,4 +22,5 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--primary-background-color);
 }

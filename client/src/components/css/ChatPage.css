@@ -5,30 +5,35 @@
 }
 
 .messages-container {
-    margin-top: 2em;
     display: flex;
     flex-direction: column;
-    background-color: white;
-    width: 70vw;
+    justify-content: flex-end;
+    background-color: var(--messages-container-color);
+    width: 85vw;
+    overflow-y: scroll;
+    height: 75vh;
 }
 
 .message-container {
     align-self: flex-start;
-    background-color: black;
+    background-color: var(--message-color-other);
     border-radius: 2em 2em 2em 0em;
     color: white;
     padding: 0.5em 1em 0.5em 1.5em;
-    margin: 0.25em 0em 0.25em 0em;
+    margin: 0.25em 7em 0.25em 0em;
     width: fit-content;
-    height: min-content;
+    height: fit-content;
 }
 
 .user-name {
     font-size: 0.8em;
+    font-weight: 900;
+    opacity: 50%;
 }
 
 .self{
-    background-color: blue;
+    background-color: var(--message-color-self);
     align-self: flex-end;
     border-radius: 2em 2em 0em 2em;
+    margin: 0.25em 0em 0.25em 7em;
 }
