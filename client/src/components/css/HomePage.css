@@ -1,10 +1,42 @@
 .home-page {
-    height: 100vh;
-    width: 100vw;
-    
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  overflow: hidden;
+  background-color: var(--primary-background-color);
 
+  height: 100vh;
+  width: 100vw;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.form-container {
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+  align-items: center;
+  width: 100vw;
+  height: 20vh;
+}
+
+.start-btn {
+  background-color: var(--secondary-background-color);
+  padding: 0.5em 1.5em;
+  color: white;
+}
+
+input[type="text"] {
+  padding: 0 1em;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  column-gap: 0.5em;
+  width: 8em;
+  height: 2em;
+  border: 2px solid black;
+  border-radius: 0em;
+
+  font-size: 1em;
+  background-color: var(--form-color);
 }
