@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useLocation } from "react-router-dom";
 import Keyboard from "./Keyboard";
 import Message from "./Message";
 import "./css/ChatPage.css"
 const Filter = require('bad-words')
 
 
-const ChatPage = () => {
-    let { roomid, name } = useParams()
+const ChatPage = (props) => {
+    const location = useLocation()
+
+    const { roomid, name } = location.state
 
     const [messages, setMessages] = useState([])
     const [isPending, setIsPending] = useState(true)

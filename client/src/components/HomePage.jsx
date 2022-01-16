@@ -46,14 +46,16 @@ const Home = () => {
 
     return (
         <div className="home-page">
-            <h1>{lat}, {lon}</h1>
-            <h1>Home Page</h1>
-            <p><strong>{location}</strong></p>
 
-            <label htmlFor="name">Name</label>
+            <div className="location">{location}</div>
+            <h2>Enter a name and get started</h2>
             <input type="text" name="name" required value={name} onChange={(e) => { setName(e.target.value) }} />
 
-            <Link to={`/chat/roomid=${lat}x${lon}&name=${name}`}>Start Chat</Link>
+
+            <Link
+                to={`/chat`}
+                state={{ name: name, roomid: `${lat}x${lon}` }}
+            >Start Chat</Link>
         </div >
     );
 }

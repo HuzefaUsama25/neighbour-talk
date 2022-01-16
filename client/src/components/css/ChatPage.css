@@ -15,6 +15,7 @@
 }
 
 .message-container {
+    display: flex;
     align-self: flex-start;
     background-color: var(--message-color-other);
     border-radius: 2em 2em 2em 0em;
@@ -36,4 +37,5 @@
     align-self: flex-end;
     border-radius: 2em 2em 0em 2em;
     margin: 0.25em 0em 0.25em 7em;
+    padding: 0.5em 1.5em 0.5em 1em;
 }
